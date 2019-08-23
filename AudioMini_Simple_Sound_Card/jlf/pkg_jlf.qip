@@ -1,0 +1,5 @@
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "pkg_jlf.qip"]
+
+set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "std/pkg_std.vhd"]
+set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "std/pkg_std_unsigned.vhd"]
+set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "std/pkg_cst.vhd"]
