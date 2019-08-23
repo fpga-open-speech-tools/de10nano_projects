@@ -9,32 +9,6 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element FE_LR_To_Multichannel_Output_0
-   {
-      datum _sortIndex
-      {
-         value = "9";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element FE_Multichannel_To_LR_Output_0
-   {
-      datum _sortIndex
-      {
-         value = "10";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
    element FE_Qsys_AD1939_Audio_Mini_v1_0
    {
       datum _sortIndex
@@ -44,16 +18,8 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
-      }
-   }
-   element FE_Qsys_Simple_HAv8_0
-   {
-      datum _sortIndex
-      {
-         value = "11";
-         type = "int";
       }
    }
    element PLL_using_AD1939_MCLK
@@ -65,7 +31,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -91,7 +57,7 @@
       }
       datum baseAddress
       {
-         value = "64";
+         value = "0";
          type = "String";
       }
    }
@@ -104,7 +70,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -117,7 +83,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -147,14 +113,6 @@
          type = "boolean";
       }
    }
-   element hps.f2h_axi_slave
-   {
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
    element jtag_uart
    {
       datum _sortIndex
@@ -177,7 +135,7 @@
       }
       datum baseAddress
       {
-         value = "72";
+         value = "8";
          type = "String";
       }
    }
@@ -199,30 +157,6 @@
       datum baseAddress
       {
          value = "0";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
          type = "String";
       }
    }
@@ -571,23 +505,8 @@
  <interface name="memory" internal="hps.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk_hps.clk_in_reset" type="reset" dir="end" />
  <module
-   name="FE_LR_To_Multichannel_Output_0"
-   kind="FE_LR_To_Multichannel_Output"
-   version="1.0"
-   enabled="1" />
- <module
-   name="FE_Multichannel_To_LR_Output_0"
-   kind="FE_Multichannel_To_LR_Output"
-   version="1.0"
-   enabled="1" />
- <module
    name="FE_Qsys_AD1939_Audio_Mini_v1_0"
    kind="FE_Qsys_AD1939_Audio_Mini_v1"
-   version="1.0"
-   enabled="1" />
- <module
-   name="FE_Qsys_Simple_HAv8_0"
-   kind="FE_Qsys_Simple_HAv8"
    version="1.0"
    enabled="1" />
  <module
@@ -711,10 +630,10 @@
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="gui_mif_generate" value="false" />
   <parameter name="gui_multiply_factor" value="1" />
-  <parameter name="gui_number_of_clocks" value="2" />
+  <parameter name="gui_number_of_clocks" value="1" />
   <parameter name="gui_operation_mode" value="direct" />
-  <parameter name="gui_output_clock_frequency0" value="98.304" />
-  <parameter name="gui_output_clock_frequency1" value="12.288" />
+  <parameter name="gui_output_clock_frequency0" value="49.152" />
+  <parameter name="gui_output_clock_frequency1" value="100.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
   <parameter name="gui_output_clock_frequency12" value="100.0" />
@@ -1426,16 +1345,7 @@
    start="hps.h2f_lw_axi_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0048" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.0"
-   start="hps.h2f_lw_axi_master"
-   end="FE_Qsys_Simple_HAv8_0.avalon_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x0008" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1444,38 +1354,13 @@
    start="hps.h2f_lw_axi_master"
    end="SystemID.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon_streaming"
    version="18.0"
    start="FE_Qsys_AD1939_Audio_Mini_v1_0.Line_In"
-   end="FE_Multichannel_To_LR_Output_0.multiplex_data_in" />
- <connection
-   kind="avalon_streaming"
-   version="18.0"
-   start="FE_Multichannel_To_LR_Output_0.data_out_left"
-   end="FE_Qsys_Simple_HAv8_0.data_in_left" />
- <connection
-   kind="avalon_streaming"
-   version="18.0"
-   start="FE_Qsys_Simple_HAv8_0.data_out_left"
-   end="FE_LR_To_Multichannel_Output_0.data_in_left" />
- <connection
-   kind="avalon_streaming"
-   version="18.0"
-   start="FE_Multichannel_To_LR_Output_0.data_out_right"
-   end="FE_Qsys_Simple_HAv8_0.data_in_right" />
- <connection
-   kind="avalon_streaming"
-   version="18.0"
-   start="FE_Qsys_Simple_HAv8_0.data_out_right"
-   end="FE_LR_To_Multichannel_Output_0.data_in_right" />
- <connection
-   kind="avalon_streaming"
-   version="18.0"
-   start="FE_LR_To_Multichannel_Output_0.multiplex_data_out"
    end="FE_Qsys_AD1939_Audio_Mini_v1_0.Headphone_Out" />
  <connection kind="clock" version="18.0" start="clk_hps.clk" end="SystemID.clk" />
  <connection kind="clock" version="18.0" start="clk_hps.clk" end="jtag_uart.clk" />
@@ -1514,26 +1399,6 @@
    version="18.0"
    start="PLL_using_AD1939_MCLK.outclk0"
    end="FE_Qsys_AD1939_Audio_Mini_v1_0.sys_clk" />
- <connection
-   kind="clock"
-   version="18.0"
-   start="PLL_using_AD1939_MCLK.outclk0"
-   end="FE_LR_To_Multichannel_Output_0.sys_clk" />
- <connection
-   kind="clock"
-   version="18.0"
-   start="PLL_using_AD1939_MCLK.outclk0"
-   end="FE_Multichannel_To_LR_Output_0.sys_clk" />
- <connection
-   kind="clock"
-   version="18.0"
-   start="PLL_using_AD1939_MCLK.outclk0"
-   end="FE_Qsys_Simple_HAv8_0.sys_clk" />
- <connection
-   kind="clock"
-   version="18.0"
-   start="PLL_using_AD1939_MCLK.outclk1"
-   end="FE_Qsys_Simple_HAv8_0.audio_pll_clk" />
  <connection
    kind="interrupt"
    version="18.0"
@@ -1576,21 +1441,6 @@
    version="18.0"
    start="clk_hps.clk_reset"
    end="FE_Qsys_AD1939_Audio_Mini_v1_0.sys_reset" />
- <connection
-   kind="reset"
-   version="18.0"
-   start="clk_hps.clk_reset"
-   end="FE_LR_To_Multichannel_Output_0.sys_reset" />
- <connection
-   kind="reset"
-   version="18.0"
-   start="clk_hps.clk_reset"
-   end="FE_Multichannel_To_LR_Output_0.sys_reset" />
- <connection
-   kind="reset"
-   version="18.0"
-   start="clk_hps.clk_reset"
-   end="FE_Qsys_Simple_HAv8_0.sys_reset_n" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

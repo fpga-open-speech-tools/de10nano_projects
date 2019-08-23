@@ -533,13 +533,10 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name SEARCH_PATH ../../../library/platform_designer/ad1939/source_files
 set_global_assignment -name ENABLE_SIGNALTAP OFF
 set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+set_global_assignment -name QIP_FILE ../../component_library/AD1939/Source_Files/Serial2Parallel_32bits.qip
+set_global_assignment -name QIP_FILE ../../component_library/AD1939/Source_Files/Parallel2Serial_32bits.qip
+set_global_assignment -name VHDL_FILE ../../component_library/AD1939/Source_Files/AD1939_hps_audio_mini_v1.vhd
 set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
-set_global_assignment -name QIP_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Serial2Parallel_32bits.qip
-set_global_assignment -name SOURCE_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Serial2Parallel_32bits.cmp
-set_global_assignment -name QIP_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Parallel2Serial_32bits.qip
-set_global_assignment -name SOURCE_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Parallel2Serial_32bits.cmp
-set_global_assignment -name VHDL_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/AD1939_hps_audio_mini_v1.vhd
 set_global_assignment -name VHDL_FILE DE10Nano_System.vhd
 set_global_assignment -name SDC_FILE DE10Nano_System.sdc
-set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
