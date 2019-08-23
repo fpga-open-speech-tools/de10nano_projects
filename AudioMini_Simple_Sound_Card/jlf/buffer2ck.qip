@@ -1,5 +1,0 @@
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "buffer2ck.qip"]
-
-set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "buffer2ck/memory.vhd"]
-set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "buffer2ck/memory_altera.vhd"]
-set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "buffer2ck/buffer2ck.vhd"]

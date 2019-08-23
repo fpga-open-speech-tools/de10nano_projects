@@ -1,3 +1,0 @@
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "mw_ip.qip"]
-
-set_global_assignment -name QSYS_FILE [file join $::quartus(qip_path) "pll_sys.qsys"]
