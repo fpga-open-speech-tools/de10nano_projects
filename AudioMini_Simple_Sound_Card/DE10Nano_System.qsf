@@ -538,14 +538,11 @@ set_global_assignment -name SEARCH_PATH ../../../library/platform_designer/de10s
 set_global_assignment -name SEARCH_PATH "../../../library/platform_designer/de10/source files"
 set_global_assignment -name SEARCH_PATH ../../../library/mathworks/simulink/ha_sys7/hdl_prj/hdlsrc/ha_sys7
 set_global_assignment -name SEARCH_PATH ../../../library/platform_designer/ad1939/source_files
+set_global_assignment -name VERILOG_FILE ../../component_library/SodiaIP/i2s/i2s_shift_out.v
+set_global_assignment -name VERILOG_FILE ../../component_library/SodiaIP/i2s/i2s_shift_in.v
+set_global_assignment -name QIP_FILE ../../component_library/SodiaIP/i2s/playback_fifo.qip
+set_global_assignment -name QIP_FILE ../../component_library/SodiaIP/i2s/capture_fifo.qip
 set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
-set_global_assignment -name QIP_FILE ../../component_library/DE10SodiaIP/i2s/playback_fifo.qip
-set_global_assignment -name QIP_FILE ../../component_library/DE10SodiaIP/i2s/capture_fifo.qip
-set_global_assignment -name VERILOG_FILE ../../component_library/DE10SodiaIP/i2s/i2s_shift_out.v
-set_global_assignment -name VERILOG_FILE ../../component_library/DE10SodiaIP/i2s/i2s_shift_in.v
-set_global_assignment -name VERILOG_FILE ../../component_library/DE10SodiaIP/i2s/i2s_output_apb.v
-set_global_assignment -name VERILOG_FILE ../../component_library/DE10SodiaIP/i2s/i2s_core_wrapper.v
-set_global_assignment -name VERILOG_FILE ../../component_library/DE10SodiaIP/i2s/i2s_clkctrl_apb.v
 set_global_assignment -name VHDL_FILE DE10Nano_System.vhd
 set_global_assignment -name SDC_FILE DE10Nano_System.sdc
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
