@@ -1178,12 +1178,12 @@
 			phandle = <0x64>;
 		};
     
-		FE_AD1939 {
-		  compatible = "dev,fe-ad1939";
-		}; //end FE_AD1939
-		FE_TPA613A2 {
-		  compatible = "dev,fe-tpa613a2";
-		}; //end FE_TPA613A2
+    FE_AD1939 {
+      compatible = "dev,fe-ad1939";
+    }; //end FE_AD1939
+    FE_TPA613A2 {
+      compatible = "dev,fe-tpa613a2";
+    }; //end FE_TPA613A2
 	};
 
 	memory@0 {
