@@ -13,26 +13,16 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "10";
          type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
       }
    }
    element FE_Multichannel_To_LR_Output_0
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "11";
          type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
       }
    }
    element FE_Qsys_AD1939_Audio_Mini_v1_0
@@ -52,7 +42,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "9";
          type = "int";
       }
    }
@@ -65,7 +55,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -147,14 +137,6 @@
          type = "boolean";
       }
    }
-   element hps.f2h_axi_slave
-   {
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
    element jtag_uart
    {
       datum _sortIndex
@@ -199,46 +181,6 @@
       datum baseAddress
       {
          value = "0";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
          type = "String";
       }
    }
@@ -1175,7 +1117,7 @@
   <parameter name="REF_CLK_FREQ_MAX_PARAM" value="0.0" />
   <parameter name="REF_CLK_FREQ_MIN_PARAM" value="0.0" />
   <parameter name="REF_CLK_FREQ_PARAM_VALID" value="false" />
-  <parameter name="S2FCLK_COLDRST_Enable" value="false" />
+  <parameter name="S2FCLK_COLDRST_Enable" value="true" />
   <parameter name="S2FCLK_PENDINGRST_Enable" value="false" />
   <parameter name="S2FCLK_USER0CLK_Enable" value="false" />
   <parameter name="S2FCLK_USER1CLK_Enable" value="false" />
@@ -1278,8 +1220,8 @@
   <parameter name="UART1_PinMuxing" value="Unused" />
   <parameter name="USB0_Mode" value="N/A" />
   <parameter name="USB0_PinMuxing" value="Unused" />
-  <parameter name="USB1_Mode" value="N/A" />
-  <parameter name="USB1_PinMuxing" value="Unused" />
+  <parameter name="USB1_Mode" value="SDR" />
+  <parameter name="USB1_PinMuxing" value="HPS I/O Set 0" />
   <parameter name="USER_DEBUG_LEVEL" value="1" />
   <parameter name="USE_AXI_ADAPTOR" value="false" />
   <parameter name="USE_FAKE_PHY" value="false" />
@@ -1518,12 +1460,12 @@
    kind="clock"
    version="18.0"
    start="PLL_using_AD1939_MCLK.outclk0"
-   end="FE_LR_To_Multichannel_Output_0.sys_clk" />
+   end="FE_Multichannel_To_LR_Output_0.sys_clk" />
  <connection
    kind="clock"
    version="18.0"
    start="PLL_using_AD1939_MCLK.outclk0"
-   end="FE_Multichannel_To_LR_Output_0.sys_clk" />
+   end="FE_LR_To_Multichannel_Output_0.sys_clk" />
  <connection
    kind="clock"
    version="18.0"
@@ -1580,12 +1522,12 @@
    kind="reset"
    version="18.0"
    start="clk_hps.clk_reset"
-   end="FE_LR_To_Multichannel_Output_0.sys_reset" />
+   end="FE_Multichannel_To_LR_Output_0.sys_reset" />
  <connection
    kind="reset"
    version="18.0"
    start="clk_hps.clk_reset"
-   end="FE_Multichannel_To_LR_Output_0.sys_reset" />
+   end="FE_LR_To_Multichannel_Output_0.sys_reset" />
  <connection
    kind="reset"
    version="18.0"

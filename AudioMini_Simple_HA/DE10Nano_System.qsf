@@ -531,50 +531,64 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name ENABLE_SIGNALTAP OFF
-set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp3.stp
-set_global_assignment -name SEARCH_PATH "../../../library/platform_designer/de10/source files"
-set_global_assignment -name SEARCH_PATH ../../../library/mathworks/simulink/ha_sys7/hdl_prj/hdlsrc/ha_sys7
-set_global_assignment -name SEARCH_PATH ../../../library/platform_designer/ad1939/source_files
-set_global_assignment -name ROUTER_LCELL_INSERTION_AND_LOGIC_DUPLICATION AUTO
-set_global_assignment -name VHDL_FILE soc_system/synthesis/soc_system.vhd
+set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_CLKOUT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPs_USB_NXT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_STP
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DIR
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA
+set_global_assignment -name SEARCH_PATH ../../simulink_models/models/ha_sys8/hdl_prj/hdlsrc/ha_sys8
+set_global_assignment -name SEARCH_PATH ../../component_library/lr_to_multichannel/source_files
+set_global_assignment -name SEARCH_PATH ../../component_library/qsys_simple_hav8/source_files
+set_global_assignment -name SEARCH_PATH ../../component_library/ad1939/source_files
+set_global_assignment -name VHDL_FILE ../../component_library/AD1939/Source_Files/AD1939_hps_audio_mini_v1.vhd
+set_global_assignment -name QIP_FILE ../../component_library/AD1939/Source_Files/Serial2Parallel_32bits.qip
+set_global_assignment -name QIP_FILE ../../component_library/AD1939/Source_Files/Parallel2Serial_32bits.qip
+set_global_assignment -name VHDL_FILE ../../component_library/Simple_Gainv8/Source_Files/FE_Qsys_HA_Simple_Gainv8.vhd
+set_global_assignment -name VHDL_FILE ../../component_library/Qsys_Simple_HAv8/Source_Files/FE_Qsys_HA_Gain_Control.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_right.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_LR_tc.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_LR_pkg.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_LR.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_left.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator4_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator4.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator3_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator3.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator2_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator2.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator1_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator1.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator4_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator4.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator3_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator3.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator2_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator2.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator1_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator1.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass4_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass4.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass3_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass3.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass2_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass2.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass1_block.vhd
+set_global_assignment -name VHDL_FILE ../../simulink_models/models/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass1.vhd
+set_global_assignment -name VHDL_FILE ../../component_library/Qsys_Simple_HAv8/Source_Files/FE_Qsys_Simple_HAv8.vhd
+set_global_assignment -name VHDL_FILE ../../component_library/LR_to_Multichannel/Source_Files/FE_Qsys_HA_Gain_Control.vhd
+set_global_assignment -name VHDL_FILE ../../component_library/LR_to_Multichannel/Source_Files/FE_LR_To_Multichannel_Output.vhd
 set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_right.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_LR_tc.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_LR_pkg.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_LR.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/HA_left.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator4_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator4.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator3_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator3.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator2_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator2.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator1_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRInterpolator1.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator4_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator4.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator3_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator3.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator2_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator2.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator1_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRDecimator1.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass4_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass4.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass3_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass3.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass2_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass2.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass1_block.vhd
-set_global_assignment -name VHDL_FILE ../../../Library/Mathworks/Simulink/HA_sys8/hdl_prj/hdlsrc/HA_sys8/FIRBandPass1.vhd
-set_global_assignment -name VHDL_FILE "../../../Library/Platform_Designer/DE10/Source Files/FE_Qsys_HA_Simple_Gainv8.vhd"
-set_global_assignment -name VHDL_FILE "../../../Library/Platform_Designer/DE10/Source Files/FE_Qsys_Simple_HAv8.vhd"
-set_global_assignment -name QIP_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Serial2Parallel_32bits.qip
-set_global_assignment -name SOURCE_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Serial2Parallel_32bits.cmp
-set_global_assignment -name VHDL_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Parallel2Serial_32bits.vhd
-set_global_assignment -name QIP_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Parallel2Serial_32bits.qip
-set_global_assignment -name SOURCE_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/Parallel2Serial_32bits.cmp
-set_global_assignment -name VHDL_FILE ../../../Library/Platform_Designer/AD1939/Source_Files/AD1939_hps_audio_mini_v1.vhd
 set_global_assignment -name VHDL_FILE DE10Nano_System.vhd
 set_global_assignment -name SDC_FILE DE10Nano_System.sdc
+set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+set_global_assignment -name VHDL_FILE ../../component_library/Simple_Gainv8/Source_Files/FE_Qsys_HA_Gain_Control.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

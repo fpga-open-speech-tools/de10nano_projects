@@ -1178,18 +1178,12 @@
 			phandle = <0x64>;
 		};
     
-		FE_Qsys_Simple_HAv8_0: Simple-HAv8@0x100000000 {
-		  compatible = "fe,FE_Qsys_Simple_HAv8-1.0", "dev,fe-Simple-HAv8";
-		  reg = <0xff200000 0x00000040>;
-		}; //end Simple-HAv8@0x100000000 (FE_Qsys_Simple_HAv8_0)
-	
-		FE_AD1939 {
-		  compatible = "dev,fe-ad1939";
-		}; //end FE_AD1939
-		
-		FE_TPA613A2 {
-		  compatible = "dev,fe-tpa613a2";
-		}; //end FE_TPA613A2
+    FE_AD1939 {
+      compatible = "dev,fe-ad1939";
+    }; //end FE_AD1939
+    FE_TPA613A2 {
+      compatible = "dev,fe-tpa613a2";
+    }; //end FE_TPA613A2
 	};
 
 	memory@0 {

@@ -1,0 +1,21 @@
+<BoardInfo pov="hps_arm_a9_0">
+<!--
+This file is intended to be used when building device trees
+for the Altera Cyclone5 SOC Development Kits.
+This board info file and hps_clock_info.xml are required input
+to sopc2dts to create a device tree suitable for the 3.9 version
+of the Linux kernel.  One typically executes sopc2dts as follows:
+
+	sopc2dts -i soc_system.sopcinfo -b soc_system_board_info.xml
+		-b hps_clock_info.xml -b hps_common_board_info.xml -o soc_system.dts
+
+-->
+<!-- TPA613A2 headphone amplifier device driver support -->
+<DTAppend name="fe_tpa613a2" type="node" parentlabel="sopc0" newlabel="fe_tpa613a2"/>
+<DTAppend name="compatible" type="string" parentlabel="fe_tpa613a2" val="dev,fe-tpa613a2"/>
+
+<!-- AD1939 codec device driver support -->
+<DTAppend name="fe_ad1939" type="node" parentlabel="sopc0" newlabel="fe_ad1939"/>
+<DTAppend name="compatible" type="string" parentlabel="fe_ad1939" val="dev,fe-ad1939"/>
+
+</BoardInfo>
