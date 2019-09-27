@@ -17,7 +17,8 @@ USE altera.altera_primitives_components.all;
 -- Signal Names are defined in the DE10-Nano User Manual
 -- http://de10-nano.terasic.com
 -----------------------------------------------------------
- entity DE10Nano_System is
+entity DE10Nano_System is
+
 	port(
 		----------------------------------------
 		--  CLOCK Inputs
@@ -190,12 +191,7 @@ USE altera.altera_primitives_components.all;
       HPS_SPIM_MOSI				: out STD_LOGIC;
       HPS_SPIM_SS					: inout STD_LOGIC;
       HPS_UART_RX					: in STD_LOGIC;
-      HPS_UART_TX					: out STD_LOGIC;
-		HPS_USB_DATA				: inout STD_LOGIC_VECTOR(7 downto 0);
-		HPS_USB_CLKOUT				: in STD_LOGIC;
-		HPS_USB_STP					: out STD_LOGIC;
-		HPS_USB_DIR					: in STD_LOGIC;
-		HPs_USB_NXT					: in STD_LOGIC
+      HPS_UART_TX					: out STD_LOGIC
 
 	);
 end entity DE10Nano_System;
@@ -236,25 +232,13 @@ architecture DE10Nano_arch of DE10Nano_System is
             hps_hps_io_hps_io_emac1_inst_RXD1   : in    std_logic                     := 'X';             -- hps_io_emac1_inst_RXD1
             hps_hps_io_hps_io_emac1_inst_RXD2   : in    std_logic                     := 'X';             -- hps_io_emac1_inst_RXD2
             hps_hps_io_hps_io_emac1_inst_RXD3   : in    std_logic                     := 'X';             -- hps_io_emac1_inst_RXD3
-				hps_hps_io_hps_io_sdio_inst_CMD     : inout std_logic                     := 'X';             -- hps_io_sdio_inst_CMD
+            hps_hps_io_hps_io_sdio_inst_CMD     : inout std_logic                     := 'X';             -- hps_io_sdio_inst_CMD
             hps_hps_io_hps_io_sdio_inst_D0      : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D0
             hps_hps_io_hps_io_sdio_inst_D1      : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D1
             hps_hps_io_hps_io_sdio_inst_CLK     : out   std_logic;                                        -- hps_io_sdio_inst_CLK
             hps_hps_io_hps_io_sdio_inst_D2      : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D2
             hps_hps_io_hps_io_sdio_inst_D3      : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D3
-				hps_hps_io_hps_io_usb1_inst_D0      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D0
-            hps_hps_io_hps_io_usb1_inst_D1      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D1
-            hps_hps_io_hps_io_usb1_inst_D2      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D2
-            hps_hps_io_hps_io_usb1_inst_D3      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D3
-            hps_hps_io_hps_io_usb1_inst_D4      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D4
-            hps_hps_io_hps_io_usb1_inst_D5      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D5
-            hps_hps_io_hps_io_usb1_inst_D6      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D6
-            hps_hps_io_hps_io_usb1_inst_D7      : inout std_logic                     := 'X';             -- hps_io_usb1_inst_D7
-            hps_hps_io_hps_io_usb1_inst_CLK     : in    std_logic                     := 'X';             -- hps_io_usb1_inst_CLK
-            hps_hps_io_hps_io_usb1_inst_STP     : out   std_logic;                                        -- hps_io_usb1_inst_STP
-            hps_hps_io_hps_io_usb1_inst_DIR     : in    std_logic                     := 'X';             -- hps_io_usb1_inst_DIR
-            hps_hps_io_hps_io_usb1_inst_NXT     : in    std_logic                     := 'X';             -- hps_io_usb1_inst_NXT
-				hps_hps_io_hps_io_spim1_inst_CLK    : out   std_logic;                                        -- hps_io_spim1_inst_CLK
+            hps_hps_io_hps_io_spim1_inst_CLK    : out   std_logic;                                        -- hps_io_spim1_inst_CLK
             hps_hps_io_hps_io_spim1_inst_MOSI   : out   std_logic;                                        -- hps_io_spim1_inst_MOSI
             hps_hps_io_hps_io_spim1_inst_MISO   : in    std_logic                     := 'X';             -- hps_io_spim1_inst_MISO
             hps_hps_io_hps_io_spim1_inst_SS0    : out   std_logic;                                        -- hps_io_spim1_inst_SS0
@@ -441,20 +425,6 @@ begin
             hps_hps_io_hps_io_emac1_inst_RXD1   => HPS_ENET_RX_DATA(1),
             hps_hps_io_hps_io_emac1_inst_RXD2   => HPS_ENET_RX_DATA(2),
             hps_hps_io_hps_io_emac1_inst_RXD3   => HPS_ENET_RX_DATA(3),
-				
-				-- HPS USB OTG
-				hps_hps_io_hps_io_usb1_inst_D0      => HPS_USB_DATA(0),
-            hps_hps_io_hps_io_usb1_inst_D1      => HPS_USB_DATA(1),
-            hps_hps_io_hps_io_usb1_inst_D2      => HPS_USB_DATA(2),
-            hps_hps_io_hps_io_usb1_inst_D3      => HPS_USB_DATA(3),
-            hps_hps_io_hps_io_usb1_inst_D4      => HPS_USB_DATA(4),
-            hps_hps_io_hps_io_usb1_inst_D5      => HPS_USB_DATA(5),
-            hps_hps_io_hps_io_usb1_inst_D6      => HPS_USB_DATA(6),
-            hps_hps_io_hps_io_usb1_inst_D7      => HPS_USB_DATA(7),
-            hps_hps_io_hps_io_usb1_inst_CLK     => HPS_USB_CLKOUT,
-            hps_hps_io_hps_io_usb1_inst_STP     => HPS_USB_STP,
-            hps_hps_io_hps_io_usb1_inst_DIR     => HPS_USB_DIR,
-            hps_hps_io_hps_io_usb1_inst_NXT     => HPS_USB_NXT,
 				
 				-- HPS SD Card
             hps_hps_io_hps_io_sdio_inst_CMD     => HPS_SD_CMD,
