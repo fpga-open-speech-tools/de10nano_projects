@@ -16,19 +16,16 @@ create_clock -period "50.0 MHz"  [get_ports HPS_SD_CLK]
 
 # AD1939 Clocks
 # Note the period of a 12.288 MHz clock is 81.380208333333329
-create_clock -period "12.288 MHz" [get_ports AD1939_MCLK]
-create_clock -period "12.288 MHz" [get_ports AD1939_ADC_ABCLK] 
-create_clock -period  "0.048 MHz" [get_ports AD1939_ADC_ALRCLK]
+create_clock -period "12.288 MHz" -waveform { 20.345 61.035 } [get_ports AD1939_MCLK]
+create_clock -period "12.288 MHz" -waveform { 20.345 61.035 } [get_ports AD1939_ADC_ABCLK] 
+create_clock -period  "0.192 MHz" [get_ports AD1939_ADC_ALRCLK]
 #----------------------------------------------------------------------------------------
 # Create a virtual clock for the AD1939 serial data input
 # See example 36 in AN 433: Constraining and Analyzing Source-Synchronous Interfaces
 # https://www.altera.com/content/dam/altera-www/global/en_US/pdfs/literature/an/an433.pdf
 #----------------------------------------------------------------------------------------
 create_clock -name virtual_sdata_input_clock  -period "12.288 MHz" 
-create_clock -name virtual_sdata_output_clock -period "12.288 MHz"
-
-# Simple HA Clock
-create_clock -name {HA_audio_clk} -period "768 kHz"  [get_registers {soc_system:u0|FE_Qsys_Simple_HAv8:fe_qsys_simple_hav8_0|audio_clk_counter[3]}]
+create_clock -name virtual_sdata_output_clock -period "12.288 MHz" 
 
 # Clocks for enhancing USB BlasterII to be reliable, 25MHz (from Terasic)
 create_clock -name {altera_reserved_tck} -period 40 {altera_reserved_tck}
@@ -54,10 +51,6 @@ set PLL_internal_clock  "u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~F
 #**************************************************************
 # Set Clock Latency
 #**************************************************************
-# set_clock_latency -source -late -rise 0.00 [get_clocks HA_audio_clk]
-# set_clock_latency -source -late -fall 0.00 [get_clocks HA_audio_clk]
-# set_clock_latency -source -early -rise 0.000 [get_clocks HA_audio_clk]
-# set_clock_latency -source -early -fall 0.000 [get_clocks HA_audio_clk]
 
 #**************************************************************
 # Set Clock Uncertainty
@@ -78,7 +71,6 @@ set_clock_groups -asynchronous \
 									$data_plane_clock \
 									$PLL_internal_clock \
 									virtual_data_input_clock \
-                  HA_audio_clk \
 						       } \
 						-group { FPGA_CLK1_50 \
 						         FPGA_CLK2_50 \
@@ -97,7 +89,6 @@ set_clock_groups -asynchronous \
 #   2. Run timing analysis
 #   3. Modify minimum and maximums based on analysis  
 #**************************************************************
-set maxtime_audio_in  0.200
 set maxtime_lrclk_in  0.200
 set maxtime_bclk_in   0.200
 set maxtime_mclk_in   0.200
@@ -107,7 +98,6 @@ set maxtime_i2cclk_in 0.200
 set maxtime_sdclk_in  0.200
 set maxtime_eclk_in   0.200
 
-set mintime_audio_in  0.200
 set mintime_lrclk_in  0.200
 set mintime_bclk_in   0.900
 set mintime_mclk_in   0.200
@@ -117,45 +107,42 @@ set mintime_i2cclk_in 0.200
 set mintime_sdclk_in  0.200
 set mintime_eclk_in   0.200
 
-# set_input_delay -clock { HA_audio_clk } -min $mintime_audio_in [get_ports {HA_audio_clk}]
-# set_input_delay -clock { HA_audio_clk } -max $maxtime_audio_in [get_ports {HA_audio_clk}]
-# set_input_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_in [get_ports {AD1939_ADC_ABCLK}]
-# set_input_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_in [get_ports {AD1939_ADC_ABCLK}]
-# set_input_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_in [get_ports {AD1939_ADC_ASDATA2}]
-# set_input_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_in [get_ports {AD1939_ADC_ASDATA2}]
-# set_input_delay -clock { AD1939_ADC_ALRCLK } -min $mintime_lrclk_in [get_ports {AD1939_ADC_ALRCLK}]
-# set_input_delay -clock { AD1939_ADC_ALRCLK } -max $maxtime_lrclk_in [get_ports {AD1939_ADC_ALRCLK}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_in [get_ports {HPS_SPIM_MISO}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_in [get_ports {HPS_SPIM_MISO}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_in [get_ports {AD1939_spi_COUT}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_in [get_ports {AD1939_spi_COUT}]
-# set_input_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_in [get_ports {Audio_Mini_SWITCHES[*]}]
-# set_input_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_in [get_ports {Audio_Mini_SWITCHES[*]}]
-# set_input_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_in [get_ports {KEY[1]}]
-# set_input_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_in [get_ports {KEY[1]}]
-# set_input_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_in [get_ports {HPS_UART_RX}]
-# set_input_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_in [get_ports {HPS_UART_RX}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -min $mintime_i2cclk_in [get_ports {HPS_I2C1_SDAT}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -max $maxtime_i2cclk_in [get_ports {HPS_I2C1_SDAT}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -min $mintime_i2cclk_in [get_ports {TPA6130_i2c_SCL}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -max $maxtime_i2cclk_in [get_ports {TPA6130_i2c_SCL}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -min $mintime_i2cclk_in [get_ports {TPA6130_i2c_SDA}]
-# set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -max $maxtime_i2cclk_in [get_ports {TPA6130_i2c_SDA}]
-# set_input_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_in [get_ports {HPS_ENET_MDIO}]
-# set_input_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_in [get_ports {HPS_ENET_MDIO}]
-# set_input_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_in [get_ports {HPS_ENET_RX_DATA[*]}]
-# set_input_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_in [get_ports {HPS_ENET_RX_DATA[*]}]
-# set_input_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_in [get_ports {HPS_ENET_RX_DV}]
-# set_input_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_in [get_ports {HPS_ENET_RX_DV}]
-# set_input_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_in [get_ports {HPS_SD_CMD}]
-# set_input_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_in [get_ports {HPS_SD_CMD}]
-# set_input_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_in [get_ports {HPS_SD_DATA[*]}]
-# set_input_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_in [get_ports {HPS_SD_DATA[*]}]
+set_input_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_in [get_ports {AD1939_ADC_ABCLK}]
+set_input_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_in [get_ports {AD1939_ADC_ABCLK}]
+set_input_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_in [get_ports {AD1939_ADC_ASDATA2}]
+set_input_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_in [get_ports {AD1939_ADC_ASDATA2}]
+set_input_delay -clock { AD1939_ADC_ALRCLK } -min $mintime_lrclk_in [get_ports {AD1939_ADC_ALRCLK}]
+set_input_delay -clock { AD1939_ADC_ALRCLK } -max $maxtime_lrclk_in [get_ports {AD1939_ADC_ALRCLK}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_in [get_ports {HPS_SPIM_MISO}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_in [get_ports {HPS_SPIM_MISO}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_in [get_ports {AD1939_spi_COUT}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_in [get_ports {AD1939_spi_COUT}]
+set_input_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_in [get_ports {Audio_Mini_SWITCHES[*]}]
+set_input_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_in [get_ports {Audio_Mini_SWITCHES[*]}]
+set_input_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_in [get_ports {KEY[1]}]
+set_input_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_in [get_ports {KEY[1]}]
+set_input_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_in [get_ports {HPS_UART_RX}]
+set_input_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_in [get_ports {HPS_UART_RX}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -min $mintime_i2cclk_in [get_ports {HPS_I2C1_SDAT}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -max $maxtime_i2cclk_in [get_ports {HPS_I2C1_SDAT}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -min $mintime_i2cclk_in [get_ports {TPA6130_i2c_SCL}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -max $maxtime_i2cclk_in [get_ports {TPA6130_i2c_SCL}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -min $mintime_i2cclk_in [get_ports {TPA6130_i2c_SDA}]
+set_input_delay -clock { u0|hps|fpga_interfaces|peripheral_i2c0|out_clk } -max $maxtime_i2cclk_in [get_ports {TPA6130_i2c_SDA}]
+set_input_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_in [get_ports {HPS_ENET_MDIO}]
+set_input_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_in [get_ports {HPS_ENET_MDIO}]
+set_input_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_in [get_ports {HPS_ENET_RX_DATA[*]}]
+set_input_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_in [get_ports {HPS_ENET_RX_DATA[*]}]
+set_input_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_in [get_ports {HPS_ENET_RX_DV}]
+set_input_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_in [get_ports {HPS_ENET_RX_DV}]
+set_input_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_in [get_ports {HPS_SD_CMD}]
+set_input_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_in [get_ports {HPS_SD_CMD}]
+set_input_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_in [get_ports {HPS_SD_DATA[*]}]
+set_input_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_in [get_ports {HPS_SD_DATA[*]}]
 
 #**************************************************************
 # Set Output Delay
 #**************************************************************
-set maxtime_audio_out  0.200
 set maxtime_lrclk_out  0.200
 set maxtime_bclk_out   0.200
 set maxtime_mclk_out   0.200
@@ -165,7 +152,6 @@ set maxtime_i2cclk_out 0.300
 set maxtime_sdclk_out  0.200
 set maxtime_eclk_out   0.200
 
-set mintime_audio_out  0.200
 set mintime_lrclk_out  0.200
 set mintime_bclk_out   0.200
 set mintime_mclk_out   0.200
@@ -175,40 +161,38 @@ set mintime_i2cclk_out 0.300
 set mintime_sdclk_out  0.200
 set mintime_eclk_out   0.200
 
-# set_output_delay -clock { HA_audio_clk } -min $mintime_audio_out [get_ports {HA_audio_clk}]
-# set_output_delay -clock { HA_audio_clk } -max $maxtime_audio_out [get_ports {HA_audio_clk}]
-# set_output_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_out [get_ports {AD1939_DAC_DBCLK}]
-# set_output_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_out [get_ports {AD1939_DAC_DBCLK}]
-# set_output_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_out [get_ports {AD1939_DAC_DSDATA1}]
-# set_output_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_out [get_ports {AD1939_DAC_DSDATA1}]
-# set_output_delay -clock { AD1939_ADC_ALRCLK } -min $maxtime_lrclk_out [get_ports {AD1939_DAC_DLRCLK}]
-# set_output_delay -clock { AD1939_ADC_ALRCLK } -max $mintime_lrclk_out [get_ports {AD1939_DAC_DLRCLK}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {AD1939_spi_CCLK}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {AD1939_spi_CCLK}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {AD1939_spi_CIN}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {AD1939_spi_CIN}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {AD1939_spi_CLATCH_n}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {AD1939_spi_CLATCH_n}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {HPS_SPIM_MOSI}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {HPS_SPIM_MOSI}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {HPS_SPIM_SS}]
-# set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {HPS_SPIM_SS}]
-# set_output_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_out [get_ports {Audio_Mini_LEDs[*]}]
-# set_output_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_out [get_ports {Audio_Mini_LEDs[*]}]
-# set_output_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_out [get_ports {HPS_UART_TX}]
-# set_output_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_out [get_ports {HPS_UART_TX}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_GTX_CLK}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_GTX_CLK}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_MDC}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_MDC}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_TX_DATA[*]}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_TX_DATA[*]}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_TX_EN}]
-# set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_TX_EN}]
-# set_output_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_out [get_ports {HPS_SD_CMD}]
-# set_output_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_out [get_ports {HPS_SD_CMD}]
-# set_output_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_out [get_ports {HPS_SD_DATA[*]}]
-# set_output_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_out [get_ports {HPS_SD_DATA[*]}]
+set_output_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_out [get_ports {AD1939_DAC_DBCLK}]
+set_output_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_out [get_ports {AD1939_DAC_DBCLK}]
+set_output_delay -clock { AD1939_ADC_ABCLK } -min $mintime_bclk_out [get_ports {AD1939_DAC_DSDATA1}]
+set_output_delay -clock { AD1939_ADC_ABCLK } -max $maxtime_bclk_out [get_ports {AD1939_DAC_DSDATA1}]
+set_output_delay -clock { AD1939_ADC_ALRCLK } -min $maxtime_lrclk_out [get_ports {AD1939_DAC_DLRCLK}]
+set_output_delay -clock { AD1939_ADC_ALRCLK } -max $mintime_lrclk_out [get_ports {AD1939_DAC_DLRCLK}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {AD1939_spi_CCLK}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {AD1939_spi_CCLK}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {AD1939_spi_CIN}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {AD1939_spi_CIN}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {AD1939_spi_CLATCH_n}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {AD1939_spi_CLATCH_n}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {HPS_SPIM_MOSI}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {HPS_SPIM_MOSI}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -min $mintime_spiclk_out [get_ports {HPS_SPIM_SS}]
+set_output_delay -clock { u0|hps|fpga_interfaces|peripheral_spim0|sclk_out } -max $maxtime_spiclk_out [get_ports {HPS_SPIM_SS}]
+set_output_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_out [get_ports {Audio_Mini_LEDs[*]}]
+set_output_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_out [get_ports {Audio_Mini_LEDs[*]}]
+set_output_delay -clock { FPGA_CLK1_50 } -min $mintime_sysclk_out [get_ports {HPS_UART_TX}]
+set_output_delay -clock { FPGA_CLK1_50 } -max $maxtime_sysclk_out [get_ports {HPS_UART_TX}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_GTX_CLK}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_GTX_CLK}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_MDC}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_MDC}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_TX_DATA[*]}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_TX_DATA[*]}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -min $mintime_eclk_out [get_ports {HPS_ENET_TX_EN}]
+set_output_delay -clock { HPS_ENET_RX_CLK } -max $maxtime_eclk_out [get_ports {HPS_ENET_TX_EN}]
+set_output_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_out [get_ports {HPS_SD_CMD}]
+set_output_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_out [get_ports {HPS_SD_CMD}]
+set_output_delay -clock { HPS_SD_CLK } -min $mintime_sdclk_out [get_ports {HPS_SD_DATA[*]}]
+set_output_delay -clock { HPS_SD_CLK } -max $maxtime_sdclk_out [get_ports {HPS_SD_DATA[*]}]
 
 #**************************************************************
 # Set Ouput Port Path Delays
@@ -216,23 +200,21 @@ set mintime_eclk_out   0.200
 set maxdelays 20
 set mindelays 5
 
-# set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[0]} -to [get_ports {HPS_ENET_MDIO}] $maxdelays
-# set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[1]} -to [get_ports {HPS_ENET_MDIO}] $maxdelays
-# set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|i2c1_inst~FF_4791} -to [get_ports {HPS_I2C1_SDAT}] $maxdelays
-# set_max_delay -from {u0|hps|fpga_interfaces|peripheral_i2c0|out_clk} -to [get_ports {TPA6130_i2c_SCL}] $maxdelays
-# set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|peripheral_i2c0~FF_4791} -to [get_ports {TPA6130_i2c_SDA}] $maxdelays
+set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[0]} -to [get_ports {HPS_ENET_MDIO}] $maxdelays
+set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[1]} -to [get_ports {HPS_ENET_MDIO}] $maxdelays
+set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|i2c1_inst~FF_4791} -to [get_ports {HPS_I2C1_SDAT}] $maxdelays
+set_max_delay -from {u0|hps|fpga_interfaces|peripheral_i2c0|out_clk} -to [get_ports {TPA6130_i2c_SCL}] $maxdelays
+set_max_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|peripheral_i2c0~FF_4791} -to [get_ports {TPA6130_i2c_SDA}] $maxdelays
 
-# set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[0]} -to [get_ports {HPS_ENET_MDIO}] $mindelays
-# set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[1]} -to [get_ports {HPS_ENET_MDIO}] $mindelays
-# set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|i2c1_inst~FF_4791} -to [get_ports {HPS_I2C1_SDAT}] $mindelays
-# set_min_delay -from {u0|hps|fpga_interfaces|peripheral_i2c0|out_clk} -to [get_ports {TPA6130_i2c_SCL}] $mindelays
-# set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|peripheral_i2c0~FF_4791} -to [get_ports {TPA6130_i2c_SDA}] $mindelays
+set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[0]} -to [get_ports {HPS_ENET_MDIO}] $mindelays
+set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|intermediate[1]} -to [get_ports {HPS_ENET_MDIO}] $mindelays
+set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|i2c1_inst~FF_4791} -to [get_ports {HPS_I2C1_SDAT}] $mindelays
+set_min_delay -from {u0|hps|fpga_interfaces|peripheral_i2c0|out_clk} -to [get_ports {TPA6130_i2c_SCL}] $mindelays
+set_min_delay -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|peripheral_i2c0~FF_4791} -to [get_ports {TPA6130_i2c_SDA}] $mindelays
 
 #**************************************************************
 # Set False Path
 #**************************************************************
-set_false_path -from [get_keepers KEY[*]] -to [get_registers {i2s_read_sync[*]}]
-set_false_path -from [get_keepers KEY[*]] -to [get_registers {i2s_write_sync[*]}]
 
 #set_false_path  -fall_from  [get_clocks {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk}]  -to  [get_clocks {HPS_DDR3_CK_P}]
 #set_false_path  -from  [get_clocks {soc_system:u0|soc_system_hps:hps|soc_system_hps_hps_io:hps_io|soc_system_hps_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk}]  -to  [get_clocks {*_IN}]
@@ -291,35 +273,41 @@ set_false_path -from [get_keepers KEY[*]] -to [get_registers {i2s_write_sync[*]}
 #**************************************************************
 #  - Best Practices for the Quartus II TimeQuest Timing Analyzer 7-20
 
-set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {HA_audio_clk}] -setup -start 4
-set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {HA_audio_clk}] -hold -start 3
-set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {FPGA_CLK1_50}] -setup -start 2
-set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {FPGA_CLK1_50}] -hold -start 1
+set soc_setup 1
+set soc_hold 1
+set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_*} -hold $soc_hold
+set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_*} -setup $soc_setup
 
-set_multicycle_path -from [get_clocks {AD1939_ADC_ALRCLK}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -setup -end 2
-set_multicycle_path -from [get_clocks {AD1939_ADC_ALRCLK}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -hold -end 1
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_traffic_limiter:hps_h2f_lw_axi_master_rd_limiter|last_channel[*]} -hold 1
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|in_size_reg[*]} -hold  1
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|in_size_reg[*]} -setup  1
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|in_byteen_reg[*]} -hold  $soc_hold
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|in_byteen_reg[*]} -setup $soc_setup
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|in_data_reg[*]} -hold $soc_hold 
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:jtag_uart_avalon_jtag_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|in_data_reg[*]} -setup $soc_setup
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_master_ni:hps_h2f_lw_axi_master_agent|altera_merlin_address_alignment:align_address_to_size|address_burst[*]} -hold $soc_hold
+# set_multicycle_path -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_*} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_master_ni:hps_h2f_lw_axi_master_agent|altera_merlin_address_alignment:align_address_to_size|address_burst[*]} -setup $soc_setup
 
-set_multicycle_path -from [get_clocks {HA_audio_clk}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -setup -end 3
-set_multicycle_path -from [get_clocks {HA_audio_clk}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] -hold -end 2
-set_multicycle_path -from [get_clocks {HA_audio_clk}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -setup -start 2
-set_multicycle_path -from [get_clocks {HA_audio_clk}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -hold -start 1
+set_multicycle_path -setup -from [get_clocks {AD1939_ADC_ALRCLK}]  -to  [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] 2
+set_multicycle_path -hold -from [get_clocks {AD1939_ADC_ALRCLK}]  -to  [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk}] 2
 
-set_multicycle_path -from [get_clocks {FPGA_CLK1_50}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -setup -end 2
-set_multicycle_path -from [get_clocks {FPGA_CLK1_50}] -to [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -hold -end 1
+# set_multicycle_path -from [get_clocks {FPGA_CLK1_50}] -to [get_clocks {FPGA_CLK1_50}] -setup 2
+# set_multicycle_path -from [get_clocks {FPGA_CLK1_50}] -to [get_clocks {FPGA_CLK1_50}] -hold 1
 
-set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {FPGA_CLK1_50}] -setup -start 2
-set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {FPGA_CLK1_50}] -hold -start 1
+# set_multicycle_path -setup -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_1556} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_master_ni:hps_h2f_lw_axi_master_agent|altera_merlin_address_alignment:align_address_to_size|address_burst[*]} 2
+# set_multicycle_path -hold -from {soc_system:u0|soc_system_hps:hps|soc_system_hps_fpga_interfaces:fpga_interfaces|hps2fpga_light_weight~FF_1556} -to {soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_master_ni:hps_h2f_lw_axi_master_agent|altera_merlin_address_alignment:align_address_to_size|address_burst[*]} 1
 
-#**************************************************************
-# Signaltap multicycles
-#**************************************************************
-#set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {FPGA_CLK1_50}] -setup -end 2
-#set_multicycle_path -from [get_clocks {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk}] -to [get_clocks {FPGA_CLK1_50}] -hold -end 1
+#set_multicycle_path -setup -to [get_ports AD1939_ADC_ALRCLK] -from [get_ports FPGA_CLK1_50] 4
+#set_multicycle_path -hold -to [get_ports AD1939_ADC_ALRCLK] -from [get_ports FPGA_CLK1_50] 3
 
-set_multicycle_path -from {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk} -to {sld_signaltap:auto_signaltap_0|acq_trigger*} -setup -end 2
-set_multicycle_path -from {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk} -to {sld_signaltap:auto_signaltap_0|acq_trigger*} -hold -end 1
-set_multicycle_path -from {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk} -to {sld_signaltap:auto_signaltap_0|acq_data*} -setup -end 2
-set_multicycle_path -from {u0|pll_using_ad1939_mclk|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk} -to {sld_signaltap:auto_signaltap_0|acq_data*} -hold -end 1
+#set_multicycle_path -setup -end -from  [get_clocks {u0|hps|hps_io|border|hps_sdram_inst|hps_sdram_p0_sampling_clock}]  -to  [get_clocks *] 2
+#set_multicycle_path -hold -end -from  [get_clocks {u0|hps|hps_io|border|hps_sdram_inst|hps_sdram_p0_sampling_clock}]  -to  [get_clocks *] 2
+#set_multicycle_path -setup -end -to [get_registers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*umemphy|*uio_pads|*uaddr_cmd_pads|*clock_gen[*].umem_ck_pad|*}] 4
+#set_multicycle_path -hold -end -to [get_registers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*umemphy|*uio_pads|*uaddr_cmd_pads|*clock_gen[*].umem_ck_pad|*}] 4
+#set_multicycle_path -setup -end -from [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*umemphy|hphy_inst~FF_*}] -to [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*lfifo~LFIFO_IN_READ_EN_FULL_DFF}] 2
+#set_multicycle_path -hold -end -from [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*umemphy|hphy_inst~FF_*}] -to [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*lfifo~LFIFO_IN_READ_EN_FULL_DFF}] 1
+#set_multicycle_path -setup -end -from [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*umemphy|hphy_inst~FF_*}] -to [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*altdq_dqs2_inst|*read_fifo~READ_ADDRESS_DFF}] 2
+#set_multicycle_path -hold -end -from [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*umemphy|hphy_inst~FF_*}] -to [get_keepers {*:u0|*:hps|*:hps_io|*:border|*:hps_sdram_inst|*p0|*altdq_dqs2_inst|*read_fifo~READ_ADDRESS_DFF}] 1
 
 #**************************************************************
 # Set Maximum Delay

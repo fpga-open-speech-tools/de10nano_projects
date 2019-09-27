@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
       datum sopceditor_expanded
@@ -22,11 +22,37 @@
          type = "boolean";
       }
    }
+   element SystemID
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element SystemID.control_slave
+   {
+      datum _lockedAddress
+      {
+         value = "0";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "64";
+         type = "String";
+      }
+   }
    element clk_AD1939_ABCLK
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "4";
          type = "int";
       }
       datum sopceditor_expanded
@@ -39,7 +65,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "5";
          type = "int";
       }
       datum sopceditor_expanded
@@ -57,11 +83,11 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
-   element clock_bridge_24p546Mhz
+   element clock_bridge_24p576Mhz
    {
       datum _sortIndex
       {
@@ -87,19 +113,11 @@
          type = "boolean";
       }
    }
-   element hps.f2h_axi_slave
-   {
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
    element i2s_clkctrl_api_0
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "6";
          type = "int";
       }
       datum sopceditor_expanded
@@ -120,329 +138,260 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element i2s_output_apb_0.apb_slave
-   {
-      datum baseAddress
       {
          value = "0";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element soc_system
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element sysid_qsys_0
-   {
-      datum _sortIndex
-      {
-         value = "2";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
          type = "boolean";
       }
    }
-   element sysid_qsys_0.control_slave
+   element soc_system
    {
-      datum baseAddress
+      datum _originalDeviceFamily
       {
-         value = "64";
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -484,13 +433,21 @@
    dir="end" />
  <interface name="clk" internal="clk_hps.clk_in" type="clock" dir="end" />
  <interface
-   name="clock_bridge_24p546mhz_out_clk"
-   internal="clock_bridge_24p546Mhz.out_clk"
+   name="clock_bridge_24p576mhz_out_clk"
+   internal="clock_bridge_24p576Mhz.out_clk"
    type="clock"
    dir="start" />
  <interface name="hps_0_h2f_user0_clock" internal="hps.h2f_user0_clock" />
- <interface name="hps_f2h_cold_reset_req" internal="hps.f2h_cold_reset_req" />
- <interface name="hps_f2h_debug_reset_req" internal="hps.f2h_debug_reset_req" />
+ <interface
+   name="hps_f2h_cold_reset_req"
+   internal="hps.f2h_cold_reset_req"
+   type="reset"
+   dir="end" />
+ <interface
+   name="hps_f2h_debug_reset_req"
+   internal="hps.f2h_debug_reset_req"
+   type="reset"
+   dir="end" />
  <interface
    name="hps_f2h_dma_req0"
    internal="hps.f2h_dma_req0"
@@ -502,7 +459,11 @@
    type="conduit"
    dir="end" />
  <interface name="hps_f2h_stm_hw_events" internal="hps.f2h_stm_hw_events" />
- <interface name="hps_f2h_warm_reset_req" internal="hps.f2h_warm_reset_req" />
+ <interface
+   name="hps_f2h_warm_reset_req"
+   internal="hps.f2h_warm_reset_req"
+   type="reset"
+   dir="end" />
  <interface
    name="hps_h2f_debug_apb"
    internal="hps.h2f_debug_apb"
@@ -782,6 +743,13 @@
   <parameter name="gui_use_locked" value="false" />
  </module>
  <module
+   name="SystemID"
+   kind="altera_avalon_sysid_qsys"
+   version="18.0"
+   enabled="1">
+  <parameter name="id" value="-1395322110" />
+ </module>
+ <module
    name="clk_AD1939_ABCLK"
    kind="clock_source"
    version="18.0"
@@ -808,7 +776,7 @@
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module
-   name="clock_bridge_24p546Mhz"
+   name="clock_bridge_24p576Mhz"
    kind="altera_clock_bridge"
    version="18.0"
    enabled="1">
@@ -919,13 +887,13 @@
   <parameter name="F2H_SDRAM3_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM4_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM5_CLOCK_FREQ" value="100" />
-  <parameter name="F2SCLK_COLDRST_Enable" value="false" />
-  <parameter name="F2SCLK_DBGRST_Enable" value="false" />
+  <parameter name="F2SCLK_COLDRST_Enable" value="true" />
+  <parameter name="F2SCLK_DBGRST_Enable" value="true" />
   <parameter name="F2SCLK_PERIPHCLK_Enable" value="false" />
   <parameter name="F2SCLK_PERIPHCLK_FREQ" value="0" />
   <parameter name="F2SCLK_SDRAMCLK_Enable" value="false" />
   <parameter name="F2SCLK_SDRAMCLK_FREQ" value="0" />
-  <parameter name="F2SCLK_WARMRST_Enable" value="false" />
+  <parameter name="F2SCLK_WARMRST_Enable" value="true" />
   <parameter name="F2SDRAM_Type" value="" />
   <parameter name="F2SDRAM_Width" value="" />
   <parameter name="F2SINTERRUPT_Enable" value="true" />
@@ -1161,7 +1129,7 @@
   <parameter name="REF_CLK_FREQ_MAX_PARAM" value="0.0" />
   <parameter name="REF_CLK_FREQ_MIN_PARAM" value="0.0" />
   <parameter name="REF_CLK_FREQ_PARAM_VALID" value="false" />
-  <parameter name="S2FCLK_COLDRST_Enable" value="false" />
+  <parameter name="S2FCLK_COLDRST_Enable" value="true" />
   <parameter name="S2FCLK_PENDINGRST_Enable" value="false" />
   <parameter name="S2FCLK_USER0CLK_Enable" value="false" />
   <parameter name="S2FCLK_USER1CLK_Enable" value="false" />
@@ -1264,8 +1232,8 @@
   <parameter name="UART1_PinMuxing" value="Unused" />
   <parameter name="USB0_Mode" value="N/A" />
   <parameter name="USB0_PinMuxing" value="Unused" />
-  <parameter name="USB1_Mode" value="N/A" />
-  <parameter name="USB1_PinMuxing" value="Unused" />
+  <parameter name="USB1_Mode" value="SDR" />
+  <parameter name="USB1_PinMuxing" value="HPS I/O Set 0" />
   <parameter name="USER_DEBUG_LEVEL" value="1" />
   <parameter name="USE_AXI_ADAPTOR" value="false" />
   <parameter name="USE_FAKE_PHY" value="false" />
@@ -1356,22 +1324,6 @@
    kind="i2s_output_apb"
    version="1.4"
    enabled="1" />
- <module
-   name="sysid_qsys_0"
-   kind="altera_avalon_sysid_qsys"
-   version="18.0"
-   enabled="1">
-  <parameter name="id" value="-559038737" />
- </module>
- <connection
-   kind="avalon"
-   version="18.0"
-   start="hps.h2f_lw_axi_master"
-   end="i2s_output_apb_0.apb_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
  <connection
    kind="avalon"
    version="18.0"
@@ -1385,21 +1337,26 @@
    kind="avalon"
    version="18.0"
    start="hps.h2f_lw_axi_master"
-   end="sysid_qsys_0.control_slave">
+   end="i2s_output_apb_0.apb_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.0"
+   start="hps.h2f_lw_axi_master"
+   end="SystemID.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection kind="clock" version="18.0" start="clk_hps.clk" end="SystemID.clk" />
  <connection
    kind="clock"
    version="18.0"
    start="clk_hps.clk"
    end="i2s_output_apb_0.clk" />
- <connection
-   kind="clock"
-   version="18.0"
-   start="clk_hps.clk"
-   end="sysid_qsys_0.clk" />
  <connection
    kind="clock"
    version="18.0"
@@ -1439,7 +1396,7 @@
    kind="clock"
    version="18.0"
    start="PLL_using_AD1939_MCLK.outclk1"
-   end="clock_bridge_24p546Mhz.in_clk" />
+   end="clock_bridge_24p576Mhz.in_clk" />
  <connection
    kind="reset"
    version="18.0"
@@ -1454,12 +1411,12 @@
    kind="reset"
    version="18.0"
    start="clk_hps.clk_reset"
-   end="PLL_using_AD1939_MCLK.reset" />
+   end="SystemID.reset" />
  <connection
    kind="reset"
    version="18.0"
    start="clk_hps.clk_reset"
-   end="i2s_output_apb_0.reset" />
+   end="PLL_using_AD1939_MCLK.reset" />
  <connection
    kind="reset"
    version="18.0"
@@ -1469,7 +1426,7 @@
    kind="reset"
    version="18.0"
    start="clk_hps.clk_reset"
-   end="sysid_qsys_0.reset" />
+   end="i2s_output_apb_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
