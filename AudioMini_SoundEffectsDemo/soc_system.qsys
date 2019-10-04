@@ -57,7 +57,7 @@
       }
       datum baseAddress
       {
-         value = "32";
+         value = "48";
          type = "String";
       }
    }
@@ -73,7 +73,7 @@
    {
       datum baseAddress
       {
-         value = "16";
+         value = "32";
          type = "String";
       }
    }
@@ -116,6 +116,22 @@
          type = "boolean";
       }
    }
+   element echo_0
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element echo_0.avalon_slave
+   {
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
+      }
+   }
    element flanger_0
    {
       datum _sortIndex
@@ -128,7 +144,7 @@
    {
       datum baseAddress
       {
-         value = "0";
+         value = "16";
          type = "String";
       }
    }
@@ -180,7 +196,7 @@
       }
       datum baseAddress
       {
-         value = "40";
+         value = "56";
          type = "String";
       }
    }
@@ -202,6 +218,14 @@
       datum baseAddress
       {
          value = "0";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -795,6 +819,7 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module name="echo_0" kind="echo" version="1.0" enabled="1" />
  <module name="flanger_0" kind="flanger" version="1.0" enabled="1" />
  <module name="hps" kind="altera_hps" version="18.0" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
@@ -1406,7 +1431,7 @@
    start="hps.h2f_lw_axi_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0028" />
+  <parameter name="baseAddress" value="0x0038" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1415,7 +1440,7 @@
    start="hps.h2f_lw_axi_master"
    end="bitcrusher_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1423,6 +1448,15 @@
    version="18.0"
    start="hps.h2f_lw_axi_master"
    end="flanger_0.avalon_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.0"
+   start="hps.h2f_lw_axi_master"
+   end="echo_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1433,7 +1467,7 @@
    start="hps.h2f_lw_axi_master"
    end="SystemID.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1442,7 +1476,7 @@
    start="jtag_master.master"
    end="flanger_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x0010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1451,24 +1485,38 @@
    start="jtag_master.master"
    end="bitcrusher_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.0"
+   start="jtag_master.master"
+   end="echo_0.avalon_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon_streaming"
    version="18.0"
    start="FE_Qsys_AD1939_Audio_Mini_v1_0.Line_In"
-   end="bitcrusher_0.avalon_streaming_sink" />
- <connection
-   kind="avalon_streaming"
-   version="18.0"
-   start="flanger_0.avalon_streaming_source"
-   end="FE_Qsys_AD1939_Audio_Mini_v1_0.Headphone_Out" />
+   end="flanger_0.avalon_streaming_sink" />
  <connection
    kind="avalon_streaming"
    version="18.0"
    start="bitcrusher_0.avalon_streaming_source"
-   end="flanger_0.avalon_streaming_sink" />
+   end="FE_Qsys_AD1939_Audio_Mini_v1_0.Headphone_Out" />
+ <connection
+   kind="avalon_streaming"
+   version="18.0"
+   start="flanger_0.avalon_streaming_source"
+   end="echo_0.avalon_streaming_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="18.0"
+   start="echo_0.avalon_streaming_source"
+   end="bitcrusher_0.avalon_streaming_sink" />
  <connection kind="clock" version="18.0" start="clk_hps.clk" end="SystemID.clk" />
  <connection kind="clock" version="18.0" start="clk_hps.clk" end="jtag_uart.clk" />
  <connection kind="clock" version="18.0" start="clk_hps.clk" end="jtag_master.clk" />
@@ -1512,6 +1560,11 @@
    version="18.0"
    start="PLL_using_AD1939_MCLK.outclk0"
    end="bitcrusher_0.clock" />
+ <connection
+   kind="clock"
+   version="18.0"
+   start="PLL_using_AD1939_MCLK.outclk0"
+   end="echo_0.clock" />
  <connection
    kind="clock"
    version="18.0"
@@ -1564,6 +1617,11 @@
    version="18.0"
    start="clk_hps.clk_reset"
    end="bitcrusher_0.reset" />
+ <connection
+   kind="reset"
+   version="18.0"
+   start="clk_hps.clk_reset"
+   end="echo_0.reset" />
  <connection
    kind="reset"
    version="18.0"
