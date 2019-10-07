@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 18.0 614 (Future versions may contain additional information.) -->
- <!-- 2019.10.04.16:53:50 -->
+ <!-- 2019.10.07.13:40:05 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1570229629</value>
+  <value>1570477205</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -4778,7 +4778,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1570229629</value>
+   <value>1570477205</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -4798,7 +4798,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1570229629</value>
+   <value>1570477205</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -4814,7 +4814,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1570229629</value>
+   <value>1570477205</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -5899,6 +5899,12 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon_streaming</type>
    <isStart>false</isStart>
    <port>
+    <name>avalon_sink_valid</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>valid</role>
+   </port>
+   <port>
     <name>avalon_sink_data</name>
     <direction>Input</direction>
     <width>32</width>
@@ -5915,12 +5921,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>2</width>
     <role>error</role>
-   </port>
-   <port>
-    <name>avalon_sink_valid</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>valid</role>
    </port>
   </interface>
   <interface
@@ -6045,6 +6045,18 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon_streaming</type>
    <isStart>true</isStart>
    <port>
+    <name>avalon_source_valid</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>valid</role>
+   </port>
+   <port>
+    <name>avalon_source_data</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>data</role>
+   </port>
+   <port>
     <name>avalon_source_channel</name>
     <direction>Output</direction>
     <width>2</width>
@@ -6055,18 +6067,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>2</width>
     <role>error</role>
-   </port>
-   <port>
-    <name>avalon_source_data</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>data</role>
-   </port>
-   <port>
-    <name>avalon_source_valid</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>valid</role>
    </port>
   </interface>
  </module>
@@ -8445,6 +8445,12 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon_streaming</type>
    <isStart>false</isStart>
    <port>
+    <name>avalon_sink_valid</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>valid</role>
+   </port>
+   <port>
     <name>avalon_sink_data</name>
     <direction>Input</direction>
     <width>32</width>
@@ -8461,12 +8467,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>2</width>
     <role>error</role>
-   </port>
-   <port>
-    <name>avalon_sink_valid</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>valid</role>
    </port>
   </interface>
   <interface
@@ -8591,6 +8591,18 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon_streaming</type>
    <isStart>true</isStart>
    <port>
+    <name>avalon_source_valid</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>valid</role>
+   </port>
+   <port>
+    <name>avalon_source_data</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>data</role>
+   </port>
+   <port>
     <name>avalon_source_channel</name>
     <direction>Output</direction>
     <width>2</width>
@@ -8601,18 +8613,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>2</width>
     <role>error</role>
-   </port>
-   <port>
-    <name>avalon_source_data</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>data</role>
-   </port>
-   <port>
-    <name>avalon_source_valid</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>valid</role>
    </port>
   </interface>
  </module>
