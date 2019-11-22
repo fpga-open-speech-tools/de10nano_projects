@@ -546,11 +546,9 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HPS_USB_DATA
 set_global_assignment -name SEARCH_PATH ../../component_library/serdes
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VHDL_FILE DE10Nano_System.vhd
+set_global_assignment -name IPX_FILE soc_system.ipx
+set_global_assignment -name QSYS_FILE soc_system.qsys
 set_global_assignment -name QIP_FILE ../../component_library/serdes/Serial2Parallel_32bits.qip
 set_global_assignment -name QIP_FILE ../../component_library/serdes/Parallel2Serial_32bits.qip
-set_global_assignment -name QSYS_FILE soc_system.qsys
-set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
-set_global_assignment -name VHDL_FILE DE10Nano_System.vhd
-set_global_assignment -name SDC_FILE DE10Nano_System.sdc
-set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
