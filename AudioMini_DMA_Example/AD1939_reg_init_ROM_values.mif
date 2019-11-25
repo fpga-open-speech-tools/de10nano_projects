@@ -1,0 +1,39 @@
+DEPTH = 32;
+WIDTH = 8;
+ADDRESS_RADIX = DEC;
+DATA_RADIX = BIN;
+CONTENT
+BEGIN
+0 : 10000000;   -- AD1939 Register 1(Address=0)
+1 : 00000011;   -- AD1939 Register 2(Address=1)
+2 : 00000000;   -- AD1939 Register 3(Address=2)
+3 : 00000000;   -- AD1939 Register 4(Address=3)
+4 : 00000000;   -- AD1939 Register 5(Address=4)
+5 : 00000000;   -- AD1939 Register 6(Address=5)
+6 : 00000000;   -- AD1939 Register 7(Address=6)
+7 : 00000000;   -- AD1939 Register 8(Address=7)
+8 : 00000000;   -- AD1939 Register 9(Address=8)
+9 : 00000000;   -- AD1939 Register 10(Address=9)
+10 : 00000000;   -- AD1939 Register 11(Address=10)
+11 : 00000000;   -- AD1939 Register 12(Address=11)
+12 : 00000000;   -- AD1939 Register 13(Address=12)
+13 : 00000000;   -- AD1939 Register 14(Address=13)
+14 : 00000000;   -- AD1939 Register 15(Address=14)
+15 : 00000000;   -- AD1939 Register 16(Address=15)
+16 : 11001000;   -- AD1939 Register 17(Address=16)
+17 : 00000000;   -- zero rest of memory
+18 : 00000000;   -- zero rest of memory
+19 : 00000000;   -- zero rest of memory
+20 : 00000000;   -- zero rest of memory
+21 : 00000000;   -- zero rest of memory
+22 : 00000000;   -- zero rest of memory
+23 : 00000000;   -- zero rest of memory
+24 : 00000000;   -- zero rest of memory
+25 : 00000000;   -- zero rest of memory
+26 : 00000000;   -- zero rest of memory
+27 : 00000000;   -- zero rest of memory
+28 : 00000000;   -- zero rest of memory
+29 : 00000000;   -- zero rest of memory
+30 : 00000000;   -- zero rest of memory
+31 : 00000000;   -- zero rest of memory
+END;

@@ -20,3 +20,4 @@ db/
 .qsys_edit/
 incremental_db/
 *.qws
+software/
