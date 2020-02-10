@@ -492,27 +492,28 @@ component spi_commands is
 	
 	  command_used_g          : std_logic 	:= '1';
 	  address_used_g          : std_logic 	:= '1';
-	  command_width_bytes_g   : natural 	:= 1;
-	  address_width_bytes_g   : natural 	:= 1;
-	  data_length_bit_width_g : natural 	:= 8;
+	  command_width_bits_g   : natural 	:= 1;
+	  address_width_bits_g   : natural 	:= 1;
+	  data_width_bits_g : natural 	:= 8;
+	  output_bits_g           : natural   := 24;
 	  cpol_cpha               : std_logic_vector(1 downto 0) := "00"
 	  );
 		port(
 			clk	           :in	std_logic;	
 			rst_n 	        :in	std_logic;
 			
-			command_in      : in  std_logic_vector(command_width_bytes_g*8-1 downto 0);
-			address_in      : in  std_logic_vector(address_width_bytes_g*8-1 downto 0);
+			command_in      : in  std_logic_vector(command_width_bits_g*8-1 downto 0);
+			address_in      : in  std_logic_vector(address_width_bits_g*8-1 downto 0);
 			address_en_in   : in  std_logic;
-			data_length_in  : in  std_logic_vector(data_length_bit_width_g - 1 downto 0);
+			data_length_in  : in  std_logic_vector(data_width_bits_g - 1 downto 0);
 			
-			master_slave_data_in      :in   std_logic_vector(7 downto 0);
+			master_slave_data_in      :in   std_logic_vector(data_width_bits_g-1 downto 0);
 			master_slave_data_rdy_in  :in   std_logic;
 			master_slave_data_ack_out :out  std_logic;
 			command_busy_out          :out  std_logic;
 			command_done              :out  std_logic;
 	
-			slave_master_data_out     : out std_logic_vector(7 downto 0);
+			slave_master_data_out     : out std_logic_vector(output_bits_g-1 downto 0);
 			slave_master_data_ack_out : out std_logic;
 	
 			miso 				:in	std_logic;	
@@ -691,9 +692,10 @@ begin
 		generic map (
 			command_used_g            => '1',  -- command field is used
 			address_used_g            => '1',  -- address field is used
-			command_width_bytes_g     =>  1,   -- command is 1 byte
-			address_width_bytes_g     =>  1,   -- address is 1 byte
-			data_length_bit_width_g   =>  8,   -- data length is 8 bits (Note: AD1939 uses a 24-bit input data word where: Global_Address=23:17="0000100", R/W=16 (read=1), Register_Address=15:8, Register_Data=7:0    See Table 14 on page 24 of AD1939 Data Sheet).
+			command_width_bits_g     =>  1,   -- command is 1 byte
+			address_width_bits_g     =>  1,   -- address is 1 byte
+			data_width_bits_g   =>  8,   -- data length is 8 bits (Note: AD1939 uses a 24-bit input data word where: Global_Address=23:17="0000100", R/W=16 (read=1), Register_Address=15:8, Register_Data=7:0    See Table 14 on page 24 of AD1939 Data Sheet).
+			output_bits_g       =>  24,
 			cpol_cpha                 => "00"  -- AD1939:  CPOL=0, CPHA=0
 		)
 		port map (
@@ -708,7 +710,7 @@ begin
 			master_slave_data_ack_out => open,                         	-- ignore acknowledgement 
 			command_busy_out          => AD1939_spi_busy,					-- If 1, the spi is busy servicing a command. 
 			command_done              => AD1939_spi_done,					-- pulse signals end of command
-			slave_master_data_out     => AD1939_spi_read_data,				-- data read from AD1939 register
+			slave_master_data_out(7 downto 0)     => AD1939_spi_read_data,				-- data read from AD1939 register
 			slave_master_data_ack_out => AD1939_spi_read_data_ack,		-- data ready to be read
 			miso 				              => AD1939_spi_COUT,					-- AD1939 SPI signal = data from AD1939 SPI registers
 			mosi 					            => AD1939_spi_CIN,						-- AD1939 SPI signal = data to AD1939 SPI registers
