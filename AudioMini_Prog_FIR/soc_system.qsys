@@ -57,7 +57,7 @@
       }
       datum baseAddress
       {
-         value = "16";
+         value = "32";
          type = "String";
       }
    }
@@ -143,7 +143,7 @@
       }
       datum baseAddress
       {
-         value = "24";
+         value = "40";
          type = "String";
       }
    }
@@ -192,11 +192,19 @@
          type = "String";
       }
    }
-   element pFIR_Testing_0.avalon_slave_0
+   element soc_system
    {
-      datum baseAddress
+      datum _originalDeviceFamily
       {
-         value = "32";
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -1384,7 +1392,7 @@
    start="hps.h2f_lw_axi_master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0018" />
+  <parameter name="baseAddress" value="0x0028" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1394,15 +1402,6 @@
    end="pFIR_Testing_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="hps.h2f_lw_axi_master"
-   end="pFIR_Testing_0.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1411,7 +1410,7 @@
    start="hps.h2f_lw_axi_master"
    end="SystemID.control_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1421,15 +1420,6 @@
    end="pFIR_Testing_0.avalon_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="master_0.master"
-   end="pFIR_Testing_0.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
