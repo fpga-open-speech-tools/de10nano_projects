@@ -1,4 +1,4 @@
-set m [ get_service_paths master ]
+set m [ lindex [ get_service_paths master ] 0 ]
 open_service master $m
 master_write_32 $m 0x00000000 0x00027a58
 master_write_32 $m 0x00000004 0xffffec29
