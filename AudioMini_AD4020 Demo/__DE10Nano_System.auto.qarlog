@@ -1,0 +1,25 @@
+Quartus Prime Archive log --	C:/Users/mc_gr/Desktop/FPGA Open Speech Tools/de10nano_projects/AudioMini_Passthrough/__DE10Nano_System.auto.qarlog
+
+Archive:	C:/Users/mc_gr/Desktop/FPGA Open Speech Tools/de10nano_projects/AudioMini_Passthrough/__DE10Nano_System.auto.qar
+Date:		Thu Nov 21 12:11:21 2019
+Quartus Prime		18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+	=========== Files Selected: ===========
+C:/Users/mc_gr/Desktop/FPGA Open Speech Tools/de10nano_projects/AudioMini_Passthrough/db/DE10Nano_System.cbx.xml
+C:/Users/mc_gr/Desktop/FPGA Open Speech Tools/de10nano_projects/AudioMini_Passthrough/db/DE10Nano_System.qpf
+C:/Users/mc_gr/Desktop/FPGA Open Speech Tools/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.flow.rpt
+C:/Users/mc_gr/Desktop/FPGA Open Speech Tools/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.map.rpt
+C:/Users/mc_gr/Desktop/FPGA Open Speech Tools/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.map.summary
+DE10Nano_System.qsf
+DE10Nano_System.sdc
+DE10Nano_System.vhd
+DE10Nano_System_assignment_defaults.qdf
+DE10Nano_System_tmp_archive.qarlog
+__DE10Nano_System.auto.qarlog
+c:/intelfpga_lite/18.1/quartus/bin64/assignment_defaults.qdf
+soc_system.ipx
+soc_system.qsys
+	======= Total: 14 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
