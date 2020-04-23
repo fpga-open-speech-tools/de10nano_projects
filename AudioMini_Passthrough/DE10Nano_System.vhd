@@ -413,9 +413,9 @@ begin
             hps_spim0_sclk_out_clk    				=> AD1939_spi_CCLK,
 				
 				-- HPS I2C #1 connection to TPA6130
-				hps_i2c0_out_data                   => i2c_serial_sda_oe,           
-            hps_i2c0_sda                        => i2c_0_i2c_serial_sda_in,       
-            hps_i2c0_clk_clk                    => serial_scl_oe,               
+          hps_i2c0_out_data                   => i2c_serial_sda_oe,           
+          hps_i2c0_sda                        => i2c_0_i2c_serial_sda_in,       
+          hps_i2c0_clk_clk                    => serial_scl_oe,               
 		      hps_i2c0_scl_in_clk                 => i2c_serial_scl_in,       
 				
 				-- HPS Clock and Reset
