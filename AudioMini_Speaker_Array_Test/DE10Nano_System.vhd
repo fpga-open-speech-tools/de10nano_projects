@@ -297,22 +297,7 @@ architecture DE10Nano_arch of DE10Nano_System is
             memory_mem_odt                      : out   std_logic;                                        -- mem_odt
             memory_mem_dm                       : out   std_logic_vector(3 downto 0);                     -- mem_dm
             memory_oct_rzqin                    : in    std_logic                     := 'X';             -- oct_rzqin
-            reset_reset_n                       : in    std_logic                     := 'X';             -- reset_n
-            serial_output_serial_control        : out   std_logic;                                        -- serial_control
-            serial_output_serial_data_out       : out   std_logic;                                        -- serial_data_out
-            serial_output_clk_out               : out std_logic                     := 'X';             -- clk_out
-            i2s_output_bclk_out                 : out   std_logic;                                        -- bclk_out
-            i2s_output_lrclk_out                : out   std_logic;                                        -- lrclk_out
-            i2s_output_sdata_out                : out   std_logic_vector(31 downto 0);                    -- sdata_out
-            serial_input_serial_control         : in    std_logic                     := 'X';             -- serial_control
-            serial_input_serial_clk             : in    std_logic                     := 'X';             -- serial_clk
-            serial_input_serial_data            : in    std_logic                     := 'X';             -- serial_data
-            led_output_led_sd                   : out   std_logic;                                        -- led_sd
-            led_output_led_ws                   : out   std_logic;                                        -- led_ws
-            i2s_comp_output_bclk_out            : out   std_logic;                                        -- bclk_out
-            i2s_comp_output_lrclk_out           : out   std_logic;                                        -- lrclk_out
-            i2s_comp_output_sdata_out           : out   std_logic_vector(31 downto 0);                     -- sdata_out
-            pll_mclk_clk                        : out   std_logic                                         -- clk
+            reset_reset_n                       : in    std_logic                     := 'X'              -- reset_n
         );
     end component soc_system;
 
@@ -359,19 +344,6 @@ architecture DE10Nano_arch of DE10Nano_System is
 	signal i2c_serial_scl_in				    : STD_LOGIC;
 	signal i2c_serial_sda_oe				    : STD_LOGIC;
 	signal serial_scl_oe						    : STD_LOGIC;
-  
-  signal serial_control : std_logic;
-  signal serial_data    : std_logic;
-  signal serial_clk     : std_logic;
-  
-  signal led_sd        : std_logic;
-  signal led_ws        : std_logic;
-	
-	
-
-	signal HPS_spi_ss_n                 : STD_LOGIC;
-	signal AD1939_spi_clatch_counter    : std_logic_vector(16 downto 0);  							--! AD1939 SPI signal = ss_n: slave select (active low)
-
 	
 	signal system_rst                   : std_logic;							 --! Global reset pin
 	signal Push_Button                  : std_logic_vector(1 downto 0);  --! a better description of KEY input, which should really be labelled as KEY_n
@@ -428,16 +400,16 @@ begin
             hps_spim0_rxd                       => AD1939_spi_COUT,                                                        
             hps_spim0_ss_in_n                   => '1',                                                 
             hps_spim0_ssi_oe_n                  => open,                                                  
-            hps_spim0_ss_0_n                    => HPS_spi_ss_n,                                                     
+            hps_spim0_ss_0_n                    => AD1939_spi_CLATCH_n,                                                     
             hps_spim0_ss_1_n                    => open,                                                     
             hps_spim0_ss_2_n                    => open,                                                    
             hps_spim0_ss_3_n                    => open,                                                     
             hps_spim0_sclk_out_clk    				=> AD1939_spi_CCLK,
 				
 				-- HPS I2C #1 connection to TPA6130
-				hps_i2c0_out_data                   => i2c_serial_sda_oe,           
-            hps_i2c0_sda                        => i2c_0_i2c_serial_sda_in,       
-            hps_i2c0_clk_clk                    => serial_scl_oe,               
+          hps_i2c0_out_data                   => i2c_serial_sda_oe,           
+          hps_i2c0_sda                        => i2c_0_i2c_serial_sda_in,       
+          hps_i2c0_clk_clk                    => serial_scl_oe,               
 		      hps_i2c0_scl_in_clk                 => i2c_serial_scl_in,       
 				
 				-- HPS Clock and Reset
@@ -524,68 +496,11 @@ begin
             memory_mem_dqs_n                    => HPS_DDR3_DQS_N,
             memory_mem_odt                      => HPS_DDR3_ODT,
             memory_mem_dm                       => HPS_DDR3_DM,
-            memory_oct_rzqin                    => HPS_DDR3_RZQ,
-            
-        -- RJ45 LED output
-            led_output_led_sd                   => open,                   --              led_output.led_sd
-            led_output_led_ws                   => open,                   --                        .led_ws
-            
-        -- Speaker array encoder connections
-            serial_output_serial_control        => Audio_Mini_GPIO_0(6),        --           serial_output.serial_control
-            serial_output_serial_data_out       => Audio_Mini_GPIO_0(8),       --                        .serial_data_out
-            serial_output_clk_out               => Audio_Mini_GPIO_0(9),               --                        .clk_out
-            
-        -- Speaker array decoder connections
-            serial_input_serial_control         => Audio_Mini_GPIO_0(0),
-            serial_input_serial_data            => Audio_Mini_GPIO_0(2),                          -- serial_data
-            serial_input_serial_clk             => Audio_Mini_GPIO_0(3),                             -- serial_clk
-        
-        -- -- I2S connections 
-            -- i2s_output_bclk_out                 => open,--Audio_Mini_GPIO_0(10),                 --              i2s_output.bclk_out
-            -- i2s_output_lrclk_out                => open,--Audio_Mini_GPIO_0(11),                --                        .lrclk_out
-            -- i2s_output_sdata_out(0)             => open,--Audio_Mini_GPIO_0(12),                 --                        .sdata_out    
-            
-        -- -- I2S test component connections  
-            -- i2s_comp_output_bclk_out            => Audio_Mini_GPIO_0(10),            --         i2s_comp_output.bclk_out
-            -- i2s_comp_output_lrclk_out           => Audio_Mini_GPIO_0(11),           --                        .lrclk_out
-            -- i2s_comp_output_sdata_out(0)        => Audio_Mini_GPIO_0(12),            --                        .sdata_out 
-        
-        -- I2S connections  
-            i2s_output_bclk_out                 => Audio_Mini_GPIO_0(10),                 --              i2s_output.bclk_out
-            i2s_output_lrclk_out                => Audio_Mini_GPIO_0(11),                --                        .lrclk_out
-            i2s_output_sdata_out(2)             => Audio_Mini_GPIO_0(12),                 --                        .sdata_out
-            
-        -- I2S test component connections  
-            i2s_comp_output_bclk_out            => open,--Audio_Mini_GPIO_0(10),            --         i2s_comp_output.bclk_out
-            i2s_comp_output_lrclk_out           => open,--Audio_Mini_GPIO_0(11),           --                        .lrclk_out
-            i2s_comp_output_sdata_out(0)        => open,--Audio_Mini_GPIO_0(12),            --                        .sdata_out 
-        
-        -- Output MCLK
-            pll_mclk_clk                        => Audio_Mini_GPIO_0(13)                                       -- clk
+            memory_oct_rzqin                    => HPS_DDR3_RZQ				
         );
+
 				
 				
-				
-		
-   ---------------------------------------------------------------------------------------------
-	-- Extend the SPI slave select hold time 
-	---------------------------------------------------------------------------------------------
-		holdSpiLatch : process (FPGA_CLK1_50)
-		begin
-			if rising_edge(FPGA_CLK1_50) then
-				if HPS_spi_ss_n = '0' then
-					AD1939_spi_clatch_counter   <= (others=>'0');                  -- reset counter
-					AD1939_spi_CLATCH_n         <= '0';
-				elsif AD1939_spi_clatch_counter < x"00000040" then
-					AD1939_spi_clatch_counter   <= AD1939_spi_clatch_counter + 1;  -- increment counter
-					AD1939_spi_CLATCH_n         <= '0';                            -- hold low until counter reaches threshold
-				else
-					AD1939_spi_CLATCH_n         <= '1';                            -- release clatch
-				end if;
-			end if;
-		end process;
-		
-		
    ---------------------------------------------------------------------------------------------
 	-- Tri-state buffer the I2C signals
 	---------------------------------------------------------------------------------------------
@@ -611,9 +526,7 @@ begin
 	-- DE10-Nano Board (unused signals output signals)
 	-------------------------------------------------------
 	LED               <= (others => '0');
-  Audio_Mini_GPIO_0(4) <= 'Z';
-  Audio_Mini_GPIO_0(1) <= 'Z';
-	Audio_Mini_GPIO_0(33 downto 14) <= (others => 'Z');
+	Audio_Mini_GPIO_0 <= (others => 'Z');
 	Audio_Mini_GPIO_1 <= (others => 'Z');
 	ARDUINO_IO		    <= (others => 'Z');
   ARDUINO_RESET_N   <= 'Z';
