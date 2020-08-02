@@ -1,0 +1,8 @@
+LPM_DIRECTION=LEFT
+LPM_TYPE=LPM_SHIFTREG
+LPM_WIDTH=32
+DEVICE_FAMILY="Arria 10"
+clock
+data
+load
+shiftout

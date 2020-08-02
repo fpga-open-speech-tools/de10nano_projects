@@ -400,7 +400,7 @@ begin
             hps_spim0_rxd                       => AD1939_spi_COUT,                                                        
             hps_spim0_ss_in_n                   => '1',                                                 
             hps_spim0_ssi_oe_n                  => open,                                                  
-            hps_spim0_ss_0_n                    => AD1939_spi_CLATCH_n,                                                     
+            hps_spim0_ss_0_n                    => AD1939_spi_CLATCH_n,                                                    
             hps_spim0_ss_1_n                    => open,                                                     
             hps_spim0_ss_2_n                    => open,                                                    
             hps_spim0_ss_3_n                    => open,                                                     
