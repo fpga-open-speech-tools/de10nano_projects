@@ -1,0 +1,22 @@
+Quartus Prime Archive log --	/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/__DE10Nano_System.auto.qarlog
+
+Archive:	/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/__DE10Nano_System.auto.qar
+Date:		Tue Nov 19 20:01:10 2019
+Quartus Prime		18.0.0 Build 614 04/24/2018 SJ Lite Edition
+
+	=========== Files Selected: ===========
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/db/DE10Nano_System.cbx.xml
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/db/DE10Nano_System.qpf
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.flow.rpt
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.map.rpt
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.map.summary
+/usr/local/Quartus/quartus/linux64/assignment_defaults.qdf
+DE10Nano_System.qsf
+DE10Nano_System.sdc
+DE10Nano_System.vhd
+soc_system.ipx
+soc_system.qsys
+	======= Total: 11 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

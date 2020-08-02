@@ -1,0 +1,30 @@
+Quartus Prime Archive log --	/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/DE10Nano_System_tmp_archive.qarlog
+
+Archive:	/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/DE10Nano_System_tmp_archive.qar
+Date:		Tue Nov 19 20:01:10 2019
+Quartus Prime		18.0.0 Build 614 04/24/2018 SJ Lite Edition
+
+	=========== Files Selected: ===========
+/home/justin/Documents/FEI/component_library/serdes/Parallel2Serial_32bits_convert_to_qsys_variant.tcl
+/home/justin/Documents/FEI/component_library/serdes/Serial2Parallel_32bits_convert_to_qsys_variant.tcl
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/DE10Nano_System.qpf
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/DE10Nano_System.qsf
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/DE10Nano_System.sdc
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/DE10Nano_System.vhd
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/gen_rbf.cof
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.flow.rpt
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.map.rpt
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/output_files/DE10Nano_System.map.summary
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/soc_system.ipx
+/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/soc_system.qsys
+/usr/local/Quartus/quartus/linux64/assignment_defaults.qdf
+	======= Total: 13 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
+
+
+******* Archived project restoration attempt on Tue Nov 19 20:01:11 2019
+Source archive file:	/home/justin/Documents/FEI/de10nano_projects/AudioMini_Passthrough/DE10Nano_System_tmp_archive.qar
+Archive was extracted into	/home/justin/Documents/FEI/de10nano_projects/AudioMini_NoiseSuppression/
+		 - successfully.
