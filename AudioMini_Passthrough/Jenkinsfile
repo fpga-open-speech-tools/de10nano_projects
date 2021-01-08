@@ -3,7 +3,7 @@ pipeline
     agent none
     stages
     {
-        stage ('Windows_Node2')
+        stage ('Windows_Node2 - Checkout DE10 Nano Projects')
         {
             agent {label 'Windows_Node2'}
             stages 
