@@ -12,7 +12,7 @@ pipeline
                 {
                     steps
                     {
-                        dir('../component_library')
+                        dir("../component_library/")
                         {
                             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'b27e7477-aab1-4f4e-a05c-23cd05d217ee', url: 'https://github.com/fpga-open-speech-tools/component_library.git']]])
                         }
