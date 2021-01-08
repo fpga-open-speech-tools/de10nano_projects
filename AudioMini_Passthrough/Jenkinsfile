@@ -1,0 +1,94 @@
+pipeline
+{
+    agent none
+    stages
+    {
+        stage ('Windows_Node2 - Checkout DE10 Nano Projects')
+        {
+            agent {label 'Windows_Node2'}
+            stages 
+            {
+                stage('Checkout the Component Library')
+                {
+                    steps
+                    {
+                        dir("../component_library/")
+                        {
+                            checkout([$class: 'GitSCM', branches: [[name: '*/dev']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'b27e7477-aab1-4f4e-a05c-23cd05d217ee', url: 'https://github.com/fpga-open-speech-tools/component_library.git']]])
+                        }
+                    }
+                }
+                stage('Qsys Build') 
+                {
+                    steps
+                    {
+                        // Generate the Qsys system in the Audio mini directory
+                        dir('AudioMini_Passthrough')
+                        {
+                            bat "qsys-generate --synthesis=VHDL soc_system.qsys --search-path=D:\\Jenkins\\workspace\\component_library\\**\\*,\$"
+                        }
+                    }
+                }
+
+                stage('Quartus Build')
+                {
+                    steps
+                    {
+                        // Build the quartus system
+                        dir('AudioMini_Passthrough') 
+                        {
+                            bat "quartus_sh --flow compile DE10Nano_System" 
+                        }
+                    }
+                }
+
+                stage('Generate RBF')
+                {
+                    steps
+                    {
+                        // Generate the RBF File
+                        dir('AudioMini_Passthrough')
+                        {
+                            bat "quartus_cpf -c gen_rbf.cof" 
+                        }
+                    }
+                }
+
+                stage('Archive')
+                {
+                    steps
+                    {
+                        dir("AudioMini_Passthrough/output_files/")
+                        {
+                            archiveArtifacts artifacts: 'soc_system.rbf', fingerprint: true
+                        }
+                    }
+                }
+
+                stage('Cleanup')
+                {
+                    steps
+                    {
+                        deleteDir()
+                        
+                        dir("${workspace}@tmp") 
+                        {
+                            deleteDir()
+                        }
+                        
+                        dir("../component_library/")
+                        {
+                           deleteDir() 
+                        }
+
+                        dir("../component_library@tmp/")
+                        {
+                           deleteDir() 
+                        }
+
+                    }
+                } 
+            }
+        }
+    }
+}
