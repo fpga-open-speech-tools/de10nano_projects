@@ -1,0 +1,44 @@
+pipeline
+{
+    agent none
+    stages
+    {
+        stage ('Windows_Node2')
+        {
+            agent {label 'Windows_Node2'}
+            stages 
+            {
+                stage('Checkout the Component Library')
+                {
+                    dir('../component_library')
+                    {
+                        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'b27e7477-aab1-4f4e-a05c-23cd05d217ee', url: 'https://github.com/fpga-open-speech-tools/component_library.git']]])
+                    }
+                }
+
+                // stage('Archive')
+                // {
+                //     steps
+                //     {
+                //         dir("image_builder/audiomini/")
+                //         {
+                //             sh 'zip audio-mini-image.zip audio-mini.img'
+                //             archiveArtifacts artifacts: 'audio-mini-image.zip', fingerprint: true
+                //         }
+                //     }
+                // }
+
+                // stage('Cleanup')
+                // {
+                //     steps
+                //     {
+                //         deleteDir()
+                //         dir("${workspace}@tmp") {
+                //             deleteDir()
+                //         }
+                //     }
+                // } 
+            }
+        }
+    }
+}
